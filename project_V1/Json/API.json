@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Restaurant A",
+    "address": "123 Main St, City1, Country1",
+    "latitude": 40.7128,
+    "longitude": -74.0060,
+    "usersCount": 200,
+    "priceTier": 2,
+    "rating": 4.5
+  },
+  {
+    "id": 2,
+    "name": "Restaurant B",
+    "address": "456 Elm St, City2, Country2",
+    "latitude": 41.8781,
+    "longitude": -87.6298,
+    "usersCount": 150,
+    "priceTier": 3,
+    "rating": 4.2
+  },
+  {
+    "id": 3,
+    "name": "Restaurant C",
+    "address": "789 Oak St, City3, Country3",
+    "latitude": 34.0522,
+    "longitude": -118.2437,
+    "usersCount": 180,
+    "priceTier": 1,
+    "rating": 4.8
+  },
+  {
+    "id": 4,
+    "name": "Restaurant D",
+    "address": "101 Pine St, City4, Country4",
+    "latitude": 51.5074,
+    "longitude": -0.1278,
+    "usersCount": 220,
+    "priceTier": 2,
+    "rating": 4.7
+  }
+]
