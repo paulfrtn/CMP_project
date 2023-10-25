@@ -18,8 +18,11 @@ boolean enter_age=false;
 boolean enter_adress=false;
 boolean enter_phone_num=false;
 boolean enter_profile_pic=false;
+boolean isLoading = true;
 
 int page=0;
+float angle=0;
+
 
 String session_pseudo = "";
 String session_password = "";
@@ -41,6 +44,8 @@ void setup() {
   size(480, 720);
   background(#2a9d8f);
   users = loadJSONArray("Json/users.json");
+  loading();
+  load_users(users);
   File file = new File(sketchPath("Json/restaurants.json"));
   if (file.exists()) {
     restaurants = loadJSONArray("Json/restaurants.json");
@@ -51,91 +56,32 @@ void setup() {
     println("Nouveau fichier JSON créé : restaurants.json");
   }
   API_rest = loadJSONArray("Json/API.json");
+  isLoading = false;
 }
 
 void draw() {
   background(#2a9d8f);
-   if(page==0){
-    session();
-  }
+  switch(page){
+    case 0:
+      session();
+    case 1:
+      create_user_form(first_name,last_name, new_pseudo,new_password,email,age,adress,phone_num,profile_pic);
   
-  if(page==1){
-    create_user_form(first_name,last_name, new_pseudo,new_password,email,age,adress,phone_num,profile_pic);
   }
 }
 
 void keyPressed() {
   if (!logged_in) {
-    if (enter_session_pseudo) {
-      if (key >= '0' && key <= '9' || key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z'|| key==' ') {
-        session_pseudo += key;
-      } else if (key == BACKSPACE && session_pseudo.length() > 0) {
-        session_pseudo = session_pseudo.substring(0,session_pseudo.length() - 1);
-      }
-    }
-    if (enter_session_password) {
-      if (key >= '0' && key <= '9' || key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z'|| key==' ') {
-        session_password += key;
-      } else if (key == BACKSPACE && session_password.length() > 0) {
-        session_password = session_password.substring(0, session_password.length() - 1);
-      }
-    }
-    if (enter_first_name) {
-      if (key >= '0' && key <= '9' || key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z'|| key==' ') {
-        first_name += key;
-      } else if (key == BACKSPACE && first_name.length() > 0) {
-        first_name = first_name.substring(0, first_name.length() - 1);
-      }
-    }
-    if (enter_last_name) {
-      if (key >= '0' && key <= '9' || key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z'|| key==' ') {
-        last_name += key;
-      } else if (key == BACKSPACE && last_name.length() > 0) {
-        last_name = last_name.substring(0, last_name.length() - 1);
-      }
-    }
-     if (enter_pseudo) {
-      if (key >= '0' && key <= '9' || key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z'|| key==' ') {
-        new_pseudo += key;
-      } else if (key == BACKSPACE && new_pseudo.length() > 0) {
-        new_pseudo = new_pseudo.substring(0, new_pseudo.length() - 1);
-      }
-    }
-    if (enter_password) {
-      if (key >= '0' && key <= '9' || key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z'|| key==' ') {
-        new_password += key;
-      } else if (key == BACKSPACE && new_pseudo.length() > 0) {
-        new_password = new_password.substring(0, new_password.length() - 1);
-      }
-    }
-    if (enter_email) {
-      if (key >= '0' && key <= '9' || key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z'|| key==' ') {
-        email += key;
-      } else if (key == BACKSPACE && email.length() > 0) {
-        email = email.substring(0, email.length() - 1);
-      }
-    }
-    if (enter_age) {
-    if (key >= '0' && key <= '9') {
-      age = age * 10 + (key - '0');
-    } else if (key == BACKSPACE && age > 0) {
-      age = age / 10;
-    }
-  }
-   if (enter_adress) {
-      if (key >= '0' && key <= '9' || key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z'|| key==' ') {
-        adress += key;
-      } else if (key == BACKSPACE && adress.length() > 0) {
-        adress = adress.substring(0, adress.length() - 1);
-      }
-    }
-    if (enter_phone_num) {
-      if (key >= '0' && key <= '9' || key=='+' || key==' ') {
-        phone_num += key;
-      } else if (key == BACKSPACE && phone_num.length() > 0) {
-        phone_num = phone_num.substring(0, phone_num.length() - 1);
-      }
-    }
+    session_pseudo = input_edit(session_pseudo, enter_session_pseudo);
+    session_password = input_edit(session_password,enter_session_password);
+    first_name = input_edit(first_name, enter_first_name);
+    last_name = input_edit(last_name, enter_last_name);
+    new_pseudo = input_edit(new_pseudo, enter_pseudo);
+    new_password = input_edit(new_password, enter_password);
+    email=input_edit(email,enter_email);
+    age = input_edit_4int(age,enter_age);
+    adress = input_edit(adress,enter_adress);
+    phone_num = input_edit(phone_num,enter_phone_num);
   }
 }
 
@@ -163,102 +109,31 @@ void mousePressed() {
     creating=false;
     creation=true;
   }
-  if(mouseButton == LEFT && ((mouseX>100 && mouseX<400)&&(mouseY>100 && mouseY<130)))
-  {
-    enter_last_name=false;
-    enter_password=false;
-    enter_pseudo=false;
-    enter_age=false;
-    enter_email=false;
-    enter_adress=false;
-    enter_phone_num=false;
-    enter_profile_pic=false;
-    enter_first_name=true;
-  }
-  if(mouseButton == LEFT && ((mouseX>100 && mouseX<400)&&(mouseY>150 && mouseY<180)))
-  {
-    enter_password=false;
-    enter_pseudo=false;
-    enter_age=false;
-    enter_email=false;
-    enter_adress=false;
-    enter_phone_num=false;
-    enter_profile_pic=false;
-    enter_first_name=false;
-    enter_last_name=true;
-  }
-  if(mouseButton == LEFT && ((mouseX>100 && mouseX<400)&&(mouseY>200 && mouseY<230)))
-  {
-    enter_password=false;
-    enter_age=false;
-    enter_email=false;
-    enter_adress=false;
-    enter_phone_num=false;
-    enter_profile_pic=false;
-    enter_first_name=false;
-    enter_last_name=false;
-    enter_pseudo=true;
-  }
-  if(mouseButton == LEFT && ((mouseX>100 && mouseX<400)&&(mouseY>250 && mouseY<280)))
-  {
-    enter_age=false;
-    enter_email=false;
-    enter_adress=false;
-    enter_phone_num=false;
-    enter_profile_pic=false;
-    enter_first_name=false;
-    enter_last_name=false;
-    enter_pseudo=false;
-    enter_password=true;
-  }
-  if(mouseButton == LEFT && ((mouseX>100 && mouseX<400)&&(mouseY>300 && mouseY<330)))
-  {
-    enter_password=false;
-    enter_age=false;
-    enter_adress=false;
-    enter_phone_num=false;
-    enter_profile_pic=false;
-    enter_first_name=false;
-    enter_last_name=false;
-    enter_pseudo=false;
-    enter_email=true;
-  }
-  if(mouseButton == LEFT && ((mouseX>100 && mouseX<400)&&(mouseY>350 && mouseY<380)))
-  {
-    enter_password=false;
-    enter_email=false;
-    enter_adress=false;
-    enter_phone_num=false;
-    enter_profile_pic=false;
-    enter_first_name=false;
-    enter_last_name=false;
-    enter_pseudo=false;
-    enter_age=true;
-  }
-  if(mouseButton == LEFT && ((mouseX>100 && mouseX<400)&&(mouseY>400 && mouseY<430)))
-  {
-    enter_password=false;
-    enter_email=false;
-    enter_phone_num=false;
-    enter_profile_pic=false;
-    enter_first_name=false;
-    enter_last_name=false;
-    enter_pseudo=false;
-    enter_age=false;
-    enter_adress=true;
-  }
-  if(mouseButton == LEFT && ((mouseX>100 && mouseX<400)&&(mouseY>450 && mouseY<480)))
-  {
-    enter_password=false;
-    enter_email=false;
-    enter_profile_pic=false;
-    enter_first_name=false;
-    enter_last_name=false;
-    enter_pseudo=false;
-    enter_age=false;
-    enter_adress=false;
-    enter_phone_num=true;
-  }
-  
-  
+  enter_first_name = input_click(100,400,100,130,enter_first_name);
+  enter_last_name = input_click(100,400,150,180,enter_last_name);
+  enter_pseudo = input_click(100,400,200,230,enter_pseudo);
+  enter_password = input_click(100,400,250,280,enter_password);
+  enter_email = input_click(100,400,300,330,enter_email);
+  enter_age = input_click(100,400,350,380,enter_age);
+  enter_adress = input_click(100,400,400,430,enter_adress);
+  enter_phone_num = input_click(100,400,450,480,enter_phone_num);  
+}
+
+
+void loading(){
+    float x = width / 2;
+    float y = height / 2;
+    float arcRadius = 50;
+    float startAngle = radians(angle);
+    float endAngle = radians(angle + 90); 
+    
+    noFill();
+    stroke(#0a9396);
+    strokeWeight(10);
+    arc(x, y, arcRadius * 2, arcRadius * 2, startAngle, endAngle);
+    
+    textSize(36);
+    fill(#0a9396);
+    text("Loading...",width/2-70,height/2+100);
+    angle += 4; 
 }
