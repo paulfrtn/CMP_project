@@ -7,7 +7,6 @@ color hoverColor = #90e0ef;
 
 void load_users(JSONArray users) {
   if (users != null) {
-    // Initialiser le tableau des utilisateurs avec la taille du JSON
     users_array = new User[users.size()];
 
     for (int i = 0; i < users.size(); i++) {
@@ -144,52 +143,9 @@ void create_user_form(String firstname, String lastname, String Pseudo, String P
     
     if(creating){
     
-    
-    if (!enter_first_name && firstname.length() == 0) {
-      noFill();
-      rect(100, 100, 300, 30);
-      fill(255);
-      textSize(16);
-      text("Enter your first name", 110, 120);
-    }
-    if (!enter_first_name && firstname.length() > 0) {
-      fill(#3a86ff);
-      rect(100, 100, 300, 30);
-      fill(255);
-      textSize(16);
-      text(firstname, 110, 120);
-    }
-    if (enter_first_name) {
-      fill(#a3b18a);
-      rect(100, 100, 300, 30);
-      fill(255);
-      textSize(16);
-      text(firstname, 110, 120);
-    }
-    
-    
-    if (!enter_last_name && lastname.length() == 0) {
-      noFill();
-      rect(100, 150, 300, 30);
-      textSize(16);
-      fill(255);
-      text("Enter your last name", 110, 170);
-    }
-    if (!enter_last_name && lastname.length() > 0) {
-      fill(#3a86ff);
-      rect(100, 150, 300, 30);
-      textSize(16);
-      fill(255);
-      text(lastname, 110, 170);
-    }
-    if (enter_last_name) {
-      fill(#a3b18a);
-      rect(100, 150, 300, 30);
-      textSize(16);
-      fill(255);
-      text(lastname, 110, 170);
-    }
-    
+    input_click_activity(firstname, enter_first_name);
+    input_click_activity(lastname, enter_last_name);
+
     
     if (!enter_pseudo && Pseudo.length() == 0) {
       noFill();
@@ -306,27 +262,7 @@ void create_user_form(String firstname, String lastname, String Pseudo, String P
     }
     
     
-    if (!enter_phone_num && phone_number.length() == 0) {
-      noFill();
-      rect(100, 450, 300, 30);
-      textSize(16);
-      fill(255);
-      text("Enter your phone number", 110, 470);
-    }
-    if (!enter_phone_num && phone_number.length() > 0) {
-      fill(#3a86ff);
-      rect(100, 450, 300, 30);
-      textSize(16);
-      fill(255);
-      text(phone_number, 110, 470);
-    }
-    if (enter_phone_num) {
-      fill(#a3b18a);
-      rect(100, 450, 300, 30);
-      textSize(16);
-      fill(255);
-      text(phone_number, 110, 470);
-    }
+    //input_click_activity(phone_num, enter_phone_num);
     
     
     fill(#3a86ff);
@@ -376,16 +312,65 @@ int generate_user_id(){
     return number;
 }
 
+String input_edit(String string, boolean bool){
+  if (bool) {
+      if (key >= '0' && key <= '9' || key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z'|| key==' ') {
+        string += key;
+      } else if (key == BACKSPACE && string.length() > 0) {
+        string = string.substring(0,string.length() - 1);
+      }
+    }
+    return string;
+}
 
+int input_edit_4int(int number, boolean bool){
+  if (bool) {
+    if (key >= '0' && key <= '9') {
+      number = number * 10 + (key - '0');
+    } else if (key == BACKSPACE && number > 0) {
+      number = number / 10;
+    }
+  }
+    return number;
+}
 
+boolean input_click(int x_inf, int x_sup, int y_inf, int y_sup,boolean bool){
+    if(mouseButton == LEFT && ((mouseX>x_inf && mouseX<x_sup)&&(mouseY>y_inf && mouseY<y_sup)))
+  {
+    enter_password=false;
+    enter_email=false;
+    enter_profile_pic=false;
+    enter_first_name=false;
+    enter_last_name=false;
+    enter_pseudo=false;
+    enter_age=false;
+    enter_adress=false;
+    enter_phone_num=false;
+    bool=true;
+  }
+  return bool;
+}
 
-
-
-
-
-
-
-
-
-
-
+void input_click_activity(String string, boolean bool){
+  if (!bool && string.length() == 0) {
+      noFill();
+      rect(100, 450, 300, 30);
+      textSize(16);
+      fill(255);
+      text("Enter your phone number", 110, 470);
+    }
+    if (!bool && string.length() > 0) {
+      fill(#3a86ff);
+      rect(100, 450, 300, 30);
+      textSize(16);
+      fill(255);
+      text(string, 110, 470);
+    }
+    if (enter_phone_num) {
+      fill(#a3b18a);
+      rect(100, 450, 300, 30);
+      textSize(16);
+      fill(255);
+      text(string, 110, 470);
+    }
+}
