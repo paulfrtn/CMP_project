@@ -8,7 +8,6 @@ class Restaurant {
    int priceTier;
    float rating; 
 
-   // Constructeur avec tous les champs
    Restaurant(float id, String name, String address, float latitude, float longitude, int usersCount, int priceTier, float rating) {
      this.id = id;
      this.name = name;
@@ -22,16 +21,11 @@ class Restaurant {
 
    void display(float x, float y) {
      textSize(14);
-     textAlign(LEFT);
      fill(0);
-     text("ID: " + id, x, y);
      text("Nom: " + name, x, y + 20);
      text("Adresse: " + address, x, y + 40);
-     text("Latitude: " + latitude, x, y + 60);
-     text("Longitude: " + longitude, x, y + 80);
-     text("Nombre d'utilisateurs: " + usersCount, x, y + 100);
-     text("Niveau de prix: " + priceTier, x, y + 120);
-     text("Note: " + rating, x, y + 140);
-     text("------", x, y + 160);
+     text("Nombre d'utilisateurs: " + usersCount , x, y + 60);
+     text("Niveau de prix: " + priceTier, x, y + 80);
+     text("Note: " + rating, x, y + 100);
    }
 }
