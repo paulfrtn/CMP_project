@@ -35,52 +35,10 @@ void connexion_form(String pseudo, String password) {
   noFill();
   stroke(255);
   strokeWeight(1);
-  if (!enter_session_pseudo && pseudo.length() == 0) {
-    noFill();
-    rect(100, 300, 300, 30);
-    fill(255);
-    textSize(16);
-    text("Enter your pseudo", 110, 320);
-  }
-  if (enter_session_pseudo) {
-    fill(#a3b18a);
-    rect(100, 300, 300, 30);
-    textSize(16);
-    fill(0);
-    text(pseudo, 110, 320);
-  }
-  if (!enter_session_password && password.length() == 0) {
-    noFill();
-    rect(100, 400, 300, 30);
-    textSize(16);
-    fill(255);
-    text("Enter your password", 110, 420);
-  }
-  if (enter_session_password) {
-    fill(#588157);
-    rect(100, 400, 300, 30);
-    textSize(16);
-    fill(0);
-    for (int i = 0; i < password.length(); i++) {
-      text("*", 110 + i * 10, 425);
-    }
-  }
-  if (!enter_session_password && password.length() > 0) {
-    fill(#3a86ff);
-    rect(100, 400, 300, 30);
-    textSize(16);
-    fill(0);
-    for (int i = 0; i < password.length(); i++) {
-      text("*", 110 + i * 10, 425);
-    }
-  }
-  if (!enter_session_pseudo && pseudo.length() > 0) {
-    fill(#3a86ff);
-    rect(100, 300, 300, 30);
-    textSize(16);
-    fill(0);
-    text(pseudo, 110, 320);
-  }
+
+  input_click_activity(100, 300, 300, 30, pseudo, enter_session_pseudo, "Enter your pseudo");
+  input_click_activity(100, 400, 300, 30, password, enter_session_password, "Enter your password");
+
   if (isMouseOverSignUp()) {
     rectWidth = lerp(rectWidth, 110, 0.2);
     rectHeight = lerp(rectHeight, 50, 0.2);
@@ -115,215 +73,93 @@ void session() {
     for (int i = 0; i < users_array.length; i++) {
       if (session_pseudo.equals(users_array[i].pseudo)) {
         if (session_password.equals(users_array[i].password)) {
-          current_user = new User(users_array[i].user_id,
-            users_array[i].first_name,
-            users_array[i].last_name,
-            users_array[i].email,
-            users_array[i].pseudo,
-            users_array[i].password,
-            users_array[i].age,
-            users_array[i].address,
-            users_array[i].phone_num);
+          current_user = new User(users_array[i].user_id, users_array[i].first_name, users_array[i].last_name, users_array[i].email, users_array[i].pseudo, users_array[i].password, users_array[i].age, users_array[i].address, users_array[i].phone_num);
           logged_in = true;
         }
-      } else {
       }
     }
     login = false;
   }
 }
 
-void create_user_form(String firstname, String lastname, String Pseudo, String PassWord, String mail, int age, String Adress, String phone_number,PImage profile_pic) {
+void create_user_form(String firstname, String lastname, String Pseudo, String PassWord, String mail, int age, String Adress, String phone_number, PImage profile_pic) {
+  textSize(20);
+  fill(0);
+  noFill();
+  stroke(255);
+  strokeWeight(1);
 
-    textSize(20);
-    fill(0);
-    noFill();
-    stroke(255);
-    strokeWeight(1);
-    
-    if(creating){
-    
-    input_click_activity(firstname, enter_first_name);
-    input_click_activity(lastname, enter_last_name);
+  if (creating) {
 
-    
-    if (!enter_pseudo && Pseudo.length() == 0) {
-      noFill();
-      rect(100, 200, 300, 30);
-      textSize(16);
-      fill(255);
-      text("Choose a pseudo", 110, 220);
-    }
-    if (!enter_pseudo && Pseudo.length() > 0) {
-      fill(#3a86ff);
-      rect(100, 200, 300, 30);
-      textSize(16);
-      fill(255);
-      text(Pseudo, 110, 220);
-    }
-    if (enter_pseudo) {
-      fill(#a3b18a);
-      rect(100, 200, 300, 30);
-      textSize(16);
-      fill(255);
-      text(Pseudo, 110, 220);
-    }
-    
-    
-    if (!enter_password && PassWord.length() == 0) {
-      noFill();
-      rect(100, 250, 300, 30);
-      textSize(16);
-      fill(255);
-      text("Choose a password", 110, 270);
-    }
-    if (!enter_password && PassWord.length() > 0) {
-      fill(#3a86ff);
-      rect(100, 250, 300, 30);
-      textSize(16);
-      fill(255);
-      text(PassWord, 110, 270);
-    }
-    if (enter_password) {
-      fill(#a3b18a);
-      rect(100, 250, 300, 30);
-      textSize(16);
-      fill(255);
-      text(PassWord, 110, 270);
-    }
-    
-    
-    if (!enter_email && mail.length() == 0) {
-      noFill();
-      rect(100, 300, 300, 30);
-      textSize(16);
-      fill(255);
-      text("Enter your mail", 110, 320);
-    }
-    if (!enter_email && mail.length() > 0) {
-      fill(#3a86ff);
-      rect(100, 300, 300, 30);
-      textSize(16);
-      fill(255);
-      text(mail, 110, 320);
-    }
-    if (enter_email ) {
-      fill(#a3b18a);
-      rect(100, 300, 300, 30);
-      textSize(16);
-      fill(255);
-      text(mail, 110, 320);
-    }
-    
-    
-    if (!enter_age && age == 0) {
-      noFill();
-      rect(100, 350, 300, 30);
-      textSize(16);
-      fill(255);
-      text("Enter your age", 110, 370);
-    }
-    if (!enter_age && age > 0) {
-      fill(#3a86ff);
-      rect(100, 350, 300, 30);
-      textSize(16);
-      fill(255);
-      text(age, 110, 370);
-    }
-    if (enter_age) {
-      fill(#a3b18a);
-      rect(100, 350, 300, 30);
-      textSize(16);
-      fill(255);
-      text(age, 110, 370);
-    }
-    
-    
-    if (!enter_adress && Adress.length() == 0) {
-      noFill();
-      rect(100, 400, 300, 30);
-      textSize(16);
-      fill(255);
-      text("Enter your adress", 110, 420);
-    }
-    if (!enter_adress && Adress.length() > 0) {
-      fill(#3a86ff);
-      rect(100, 400, 300, 30);
-      textSize(16);
-      fill(255);
-      text(Adress, 110, 420);
-    }
-    if (enter_adress) {
-      fill(#a3b18a);
-      rect(100, 400, 300, 30);
-      textSize(16);
-      fill(255);
-      text(Adress, 110, 420);
-    }
-    
-    
-    //input_click_activity(phone_num, enter_phone_num);
-    
-    
+    input_click_activity(100, 100, 300, 30, firstname, enter_first_name, "Enter your first name");
+    input_click_activity(100, 150, 300, 30, lastname, enter_last_name, "Enter your last name");
+    input_click_activity(100, 200, 300, 30, Pseudo, enter_pseudo, "Enter your pseudo");
+    input_click_activity(100, 250, 300, 30, PassWord, enter_password, "Enter your password");
+    input_click_activity(100, 300, 300, 30, mail, enter_email, "Enter your email");
+    input_click_activity_4int(100, 350, 300, 30, age, enter_age, "Enter your age");
+    input_click_activity(100, 400, 300, 30, Adress, enter_adress, "Enter your home adress");
+    input_click_activity(100, 450, 300, 30, phone_num, enter_phone_num, "Enter your phone number");
+
+
     fill(#3a86ff);
-    rect(100,500,300,50);
+    rect(100, 500, 300, 50);
     fill(255);
-    text("Take a profile picture",170,530);
-    profile_pic=loadImage("images/default_pp.png");
-    
-    fill(#3a86ff);
-    rect(100,600,300,50);
-    fill(255);
-    text("Create your account",170,630);
-    }
-    
-    if(creation){
-       JSONObject newUserJSON = new JSONObject();
-  newUserJSON.setInt("user_id", generate_user_id()); // Remplacez generateUserID() par une fonction qui génère un nouvel ID utilisateur unique
-newUserJSON.setString("first_name", first_name);
-newUserJSON.setString("last_name", last_name);
-newUserJSON.setString("pseudo", new_pseudo);
-newUserJSON.setString("password", new_password);
-newUserJSON.setInt("age", age);
-newUserJSON.setString("email", email);
-newUserJSON.setString("address", adress);
-newUserJSON.setString("phone_num", phone_num);
-newUserJSON.setString("profile_pic","Json/default_pp.jpg");
+    text("Take a profile picture", 170, 530);
+    profile_pic = loadImage("images/default_pp.png");
 
-users.setJSONObject(users.size(), newUserJSON);
-saveJSONArray(users, "Json/users.json");
-load_users(users);
-page=0;
-creation = false;
-    }
+    fill(#3a86ff);
+    rect(100, 600, 300, 50);
+    fill(255);
+    text("Create your account", 170, 630);
+  }
+
+  if (creation) {
+    JSONObject newUserJSON = new JSONObject();
+    newUserJSON.setInt("user_id", generate_user_id());
+    newUserJSON.setString("first_name", first_name);
+    newUserJSON.setString("last_name", last_name);
+    newUserJSON.setString("pseudo", new_pseudo);
+    newUserJSON.setString("password", new_password);
+    newUserJSON.setInt("age", age);
+    newUserJSON.setString("email", email);
+    newUserJSON.setString("address", adress);
+    newUserJSON.setString("phone_num", phone_num);
+    newUserJSON.setString("profile_pic", "Json/default_pp.jpg");
+
+    users.setJSONObject(users.size(), newUserJSON);
+    saveJSONArray(users, "Json/users.json");
+    load_users(users);
+    page = 0;
+    creation = false;
+  }
 }
 
-int generate_user_id(){
-    String[] numbers = loadStrings("Json/id.txt");
-    int number = 0;
-    if (numbers.length > 0) {
-        number = int(numbers[0]);
-    }
-    number++;
-    
-    String[] updatedNumber = { str(number) };
-    saveStrings("Json/id.txt", updatedNumber);
-    
-    return number;
+int generate_user_id() {
+  String[] numbers = loadStrings("Json/id.txt");
+  int number = 0;
+  if (numbers.length > 0) {
+    number = int(numbers[0]);
+  }
+  number++;
+
+  String[] updatedNumber = {str(number)};
+  saveStrings("Json/id.txt", updatedNumber);
+
+  return number;
 }
 
-String input_edit(String string, boolean bool){
+String input_edit(String string, boolean bool) {
   if (bool) {
-      if (key >= '0' && key <= '9' || key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z'|| key==' ') {
-        string += key;
-      } else if (key == BACKSPACE && string.length() > 0) {
-        string = string.substring(0,string.length() - 1);
-      }
+    if (key >= '0' && key <= '9' || key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z' || key == ' ') {
+      string += key;
+    } else if (key == BACKSPACE && string.length() > 0) {
+      string = string.substring(0, string.length() - 1);
     }
-    return string;
+  }
+  return string;
 }
 
-int input_edit_4int(int number, boolean bool){
+int input_edit_4int(int number, boolean bool) {
   if (bool) {
     if (key >= '0' && key <= '9') {
       number = number * 10 + (key - '0');
@@ -331,46 +167,91 @@ int input_edit_4int(int number, boolean bool){
       number = number / 10;
     }
   }
-    return number;
+  return number;
 }
 
-boolean input_click(int x_inf, int x_sup, int y_inf, int y_sup,boolean bool){
-    if(mouseButton == LEFT && ((mouseX>x_inf && mouseX<x_sup)&&(mouseY>y_inf && mouseY<y_sup)))
-  {
-    enter_password=false;
-    enter_email=false;
-    enter_profile_pic=false;
-    enter_first_name=false;
-    enter_last_name=false;
-    enter_pseudo=false;
-    enter_age=false;
-    enter_adress=false;
-    enter_phone_num=false;
-    bool=true;
+boolean input_click_page1(int x_inf, int x_sup, int y_inf, int y_sup, boolean bool) {
+  if (mouseButton == LEFT && ((mouseX > x_inf && mouseX < x_sup) && (mouseY > y_inf && mouseY < y_sup))) {
+    enter_session_pseudo = false;
+    enter_session_password = false;
+    enter_password = false;
+    enter_email = false;
+    enter_profile_pic = false;
+    enter_first_name = false;
+    enter_last_name = false;
+    enter_pseudo = false;
+    enter_age = false;
+    enter_adress = false;
+    enter_phone_num = false;
+    bool = true;
   }
   return bool;
 }
 
-void input_click_activity(String string, boolean bool){
+void input_click_activity(int x, int y, int l, int L, String string, boolean bool, String name) {
   if (!bool && string.length() == 0) {
-      noFill();
-      rect(100, 450, 300, 30);
-      textSize(16);
-      fill(255);
-      text("Enter your phone number", 110, 470);
-    }
+    noFill();
+    rect(x, y, l, L);
+    textSize(16);
+    fill(255);
+    text(name, x + 10, y + 20);
+  }
+  else {
     if (!bool && string.length() > 0) {
       fill(#3a86ff);
-      rect(100, 450, 300, 30);
+      rect(x, y, l, L);
       textSize(16);
       fill(255);
-      text(string, 110, 470);
+      text(string, x + 10, y + 20);
     }
-    if (enter_phone_num) {
+    if (bool) {
       fill(#a3b18a);
-      rect(100, 450, 300, 30);
+      rect(x, y, l, L);
       textSize(16);
       fill(255);
-      text(string, 110, 470);
+      text(string, x + 10, y + 20);
     }
+  }
+  if (enter_session_password && page==0) {
+    fill(#588157);
+    rect(100, 400, 300, 30);
+    textSize(16);
+    fill(0);
+    for (int i = 0; i < string.length(); i++) {
+       text("*", 110 + i * 10, 425);
+      }
+    } 
+  else if (!enter_session_password && session_password.length() > 0 && page==0) {
+    fill(#3a86ff);
+    rect(100, 400, 300, 30);
+    textSize(16);
+    fill(0);
+    for (int i = 0; i < string.length(); i++) {
+      text("*", 110 + i * 10, 425);
+    }
+  } 
+}
+
+void input_click_activity_4int(int x, int y, int l, int L, int number, boolean bool, String name) {
+  if (!bool && number == 0) {
+    noFill();
+    rect(x, y, l, L);
+    textSize(16);
+    fill(255);
+    text(name, x + 10, y + 20);
+  }
+  if (!bool && number > 0) {
+    fill(#3a86ff);
+    rect(x, y, l, L);
+    textSize(16);
+    fill(255);
+    text(number, x + 10, y + 20);
+  }
+  if (bool) {
+    fill(#a3b18a);
+    rect(x, y, l, L);
+    textSize(16);
+    fill(255);
+    text(number, x + 10, y + 20);
+  }
 }
