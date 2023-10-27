@@ -61,12 +61,11 @@ void setup() {
 
 void draw() {
   background(#2a9d8f);
-  switch(page){
-    case 0:
-      session();
-    case 1:
-      create_user_form(first_name,last_name, new_pseudo,new_password,email,age,adress,phone_num,profile_pic);
-  
+  if(page==0){
+  session();
+  }
+  if(page==1){
+  create_user_form(first_name,last_name, new_pseudo,new_password,email,age,adress,phone_num,profile_pic);
   }
 }
 
@@ -83,18 +82,13 @@ void keyPressed() {
     adress = input_edit(adress,enter_adress);
     phone_num = input_edit(phone_num,enter_phone_num);
   }
+  if(key==' '){
+    page=0;
+  }
 }
 
 
 void mousePressed() {
-  if (mouseButton == LEFT && ((mouseX >= 100 && mouseX <= 400) && (mouseY >= 300 && mouseY < 330)) && page==0) {
-    enter_session_pseudo = true;
-    enter_session_password = false;
-  }
-  if (mouseButton == LEFT && ((mouseX >= 100 && mouseX <= 400) && (mouseY >= 400 && mouseY < 430)) && page==0) {
-    enter_session_pseudo = false;
-    enter_session_password = true;
-  }
   if(mouseButton == LEFT && isMouseOverSignUp()){
     login = true;
   }
@@ -102,6 +96,8 @@ void mousePressed() {
   {
     login=false;
     creating = true;
+    enter_session_pseudo = false;
+    enter_session_password = false;
     page=1;
   }
   if(mouseButton == LEFT && ((mouseX>100 && mouseX<400)&&(mouseY>600 && mouseY<650)))
@@ -109,14 +105,20 @@ void mousePressed() {
     creating=false;
     creation=true;
   }
-  enter_first_name = input_click(100,400,100,130,enter_first_name);
-  enter_last_name = input_click(100,400,150,180,enter_last_name);
-  enter_pseudo = input_click(100,400,200,230,enter_pseudo);
-  enter_password = input_click(100,400,250,280,enter_password);
-  enter_email = input_click(100,400,300,330,enter_email);
-  enter_age = input_click(100,400,350,380,enter_age);
-  enter_adress = input_click(100,400,400,430,enter_adress);
-  enter_phone_num = input_click(100,400,450,480,enter_phone_num);  
+  if(page==0){
+    enter_session_pseudo = input_click_page1(100,400,300,330,enter_session_pseudo);
+    enter_session_password = input_click_page1(100,400,400,430,enter_session_password);
+  }
+  if(page==1){
+    enter_first_name = input_click_page1(100,400,100,130,enter_first_name);
+    enter_last_name = input_click_page1(100,400,150,180,enter_last_name);
+    enter_pseudo = input_click_page1(100,400,200,230,enter_pseudo);
+    enter_password = input_click_page1(100,400,250,280,enter_password);
+    enter_email = input_click_page1(100,400,300,330,enter_email);
+    enter_age = input_click_page1(100,400,350,380,enter_age);
+    enter_adress = input_click_page1(100,400,400,430,enter_adress);
+    enter_phone_num = input_click_page1(100,400,450,480,enter_phone_num);  
+  }
 }
 
 
