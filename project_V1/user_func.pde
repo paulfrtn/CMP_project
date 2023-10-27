@@ -255,3 +255,59 @@ void input_click_activity_4int(int x, int y, int l, int L, int number, boolean b
     text(number, x + 10, y + 20);
   }
 }
+
+
+void profile_picture(){
+  if (key == ' ') {
+    page=2;
+    if(!one_use){
+       background(#2a9d8f);
+       one_use=true;
+    }
+    windowResize(1200,800);
+    width=1200;
+    height=800;
+    if (!cameraActive && !photoTaken) {
+      video = new Capture(this, width, height);
+      video.start();
+      cameraActive = true;
+    } else if (photoTaken) {
+      capturedImage = null;  // Clear the captured image
+      photoTaken = false;
+      cameraActive = true;
+    } else {
+      video.stop();
+      video.dispose();
+      cameraActive = false;
+    }
+  } else if (key == ENTER) {
+    if (cameraActive) {
+      saveFrame("images/pp/photo.png");
+      capturedImage = loadImage("images/pp/photo.png");
+      photoTaken = true;
+      video.stop();
+      video.dispose();
+      cameraActive = false;
+    }
+  } else if (photoTaken) {
+    if (key == 'y' || key == 'Y') {
+      println("Photo saved as photo.png");
+      photoTaken = false;
+      capturedImage = null;
+      cameraActive = true;
+      background(255);
+      video = new Capture(this, width, height);
+      video.start();
+    } else if (key == 'n' || key == 'N') {
+      File fileToDelete = new File(sketchPath("images/pp/photo.png"));
+      fileToDelete.delete();
+      capturedImage = null;
+      photoTaken = false;
+      cameraActive = true;
+      background(255);
+      video = new Capture(this, width, height);
+      video.start();
+    }
+  }
+}
+
