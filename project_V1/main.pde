@@ -1,3 +1,7 @@
+import processing.video.*;
+import java.io.File;
+
+
 JSONArray users;
 JSONArray restaurants;
 JSONArray API_rest;
@@ -18,10 +22,11 @@ boolean enter_age=false;
 boolean enter_adress=false;
 boolean enter_phone_num=false;
 boolean enter_profile_pic=false;
-boolean isLoading = true;
+boolean cameraActive = false;
+boolean photoTaken = false;
+boolean one_use=false;
 
 int page=0;
-float angle=0;
 
 
 String session_pseudo = "";
@@ -34,6 +39,9 @@ String new_password="";
 int age;
 String adress = "";
 String phone_num="";
+
+Capture video;
+PImage capturedImage;
 PImage profile_pic;
 
 Restaurant[] restaurants_array;
@@ -44,7 +52,6 @@ void setup() {
   size(480, 720);
   background(#2a9d8f);
   users = loadJSONArray("Json/users.json");
-  loading();
   load_users(users);
   File file = new File(sketchPath("Json/restaurants.json"));
   if (file.exists()) {
@@ -56,17 +63,31 @@ void setup() {
     println("Nouveau fichier JSON créé : restaurants.json");
   }
   API_rest = loadJSONArray("Json/API.json");
-  isLoading = false;
 }
 
 void draw() {
-  background(#2a9d8f);
   if(page==0){
-  session();
+     background(#2a9d8f);
+    session();
   }
   if(page==1){
-  create_user_form(first_name,last_name, new_pseudo,new_password,email,age,adress,phone_num,profile_pic);
+    background(#2a9d8f);
+    create_user_form(first_name,last_name, new_pseudo,new_password,email,age,adress,phone_num,profile_pic);
   }
+  if(page==2){
+    if (photoTaken) {
+      background(#2a9d8f);
+      image(capturedImage, 0, 0);
+      textSize(32);
+      fill(0);
+      text("Press 'Y' to save or 'N' to discard", 50, 50);
+    } 
+    else if (cameraActive && video.available()) {
+      video.read();
+      image(video, 0, 0);
+    }
+  }
+  
 }
 
 void keyPressed() {
@@ -81,9 +102,6 @@ void keyPressed() {
     age = input_edit_4int(age,enter_age);
     adress = input_edit(adress,enter_adress);
     phone_num = input_edit(phone_num,enter_phone_num);
-  }
-  if(key==' '){
-    page=0;
   }
 }
 
@@ -119,23 +137,4 @@ void mousePressed() {
     enter_adress = input_click_page1(100,400,400,430,enter_adress);
     enter_phone_num = input_click_page1(100,400,450,480,enter_phone_num);  
   }
-}
-
-
-void loading(){
-    float x = width / 2;
-    float y = height / 2;
-    float arcRadius = 50;
-    float startAngle = radians(angle);
-    float endAngle = radians(angle + 90); 
-    
-    noFill();
-    stroke(#0a9396);
-    strokeWeight(10);
-    arc(x, y, arcRadius * 2, arcRadius * 2, startAngle, endAngle);
-    
-    textSize(36);
-    fill(#0a9396);
-    text("Loading...",width/2-70,height/2+100);
-    angle += 4; 
 }
