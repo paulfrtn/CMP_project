@@ -2,8 +2,8 @@ float rectWidth = 100;
 float rectHeight = 40;
 float posX = 200;
 float posY = 500;
-color normalColor = C1;
-color hoverColor = C2;
+color normalColor = #0077b6;
+color hoverColor = #90e0ef;
 
 void load_users(JSONArray users) {
   if (users != null) {
@@ -30,8 +30,9 @@ void load_users(JSONArray users) {
 
 void connexion_form(String pseudo, String password) {
   textSize(20);
-  fill(C1);
+  fill(0);
   text("Connexion", 200, 250);
+  noFill();
   stroke(255);
   strokeWeight(1);
 
@@ -62,11 +63,11 @@ boolean isMouseOverSignUp() {
 
 void session() {
   if (!logged_in) {
-    fill(C1);
+    fill(0);
     rect(100, 100, 30, 30);
     connexion_form(session_pseudo, session_password);
   } else {
-    current_user.display();
+    current_user.display(100, 350);
   }
   if (login) {
     for (int i = 0; i < users_array.length; i++) {
@@ -78,15 +79,14 @@ void session() {
       }
     }
     login = false;
-    
   }
 }
 
 void create_user_form(String firstname, String lastname, String Pseudo, String PassWord, String mail, int age, String Adress, String phone_number, PImage profile_pic) {
   textSize(20);
-  fill(C1);
+  fill(0);
   noFill();
-  stroke(C1);
+  stroke(255);
   strokeWeight(1);
 
   if (creating) {
@@ -98,18 +98,18 @@ void create_user_form(String firstname, String lastname, String Pseudo, String P
     input_click_activity(100, 300, 300, 30, mail, enter_email, "Enter your email");
     input_click_activity_4int(100, 350, 300, 30, age, enter_age, "Enter your age");
     input_click_activity(100, 400, 300, 30, Adress, enter_adress, "Enter your home adress");
-    input_click_activity(100, 450, 300, 30, phone_num, enter_phone_num, "Enter your phone number");
+    input_click_activity(100, 450, 300, 30, phone_number, enter_phone_num, "Enter your phone number");
 
 
-    fill(C1);
+    fill(#3a86ff);
     rect(100, 500, 300, 50);
-    fill(C3);
+    fill(255);
     text("Take a profile picture", 170, 530);
     profile_pic = loadImage("images/default_pp.png");
 
-    fill(C1);
+    fill(#3a86ff);
     rect(100, 600, 300, 50);
-    fill(C3);
+    fill(255);
     text("Create your account", 170, 630);
   }
 
@@ -191,7 +191,7 @@ boolean input_click_page1(int x_inf, int x_sup, int y_inf, int y_sup, boolean bo
 void input_click_activity(int x, int y, int l, int L, String string, boolean bool, String name) {
   if (!bool && string.length() == 0) {
     noFill();
-    rect(x, y, l, L);
+    rect(x, y, l, L,10);
     textSize(16);
     fill(255);
     text(name, x + 10, y + 20);
@@ -199,14 +199,14 @@ void input_click_activity(int x, int y, int l, int L, String string, boolean boo
   else {
     if (!bool && string.length() > 0) {
       fill(#3a86ff);
-      rect(x, y, l, L);
+      rect(x, y, l, L,10);
       textSize(16);
       fill(255);
       text(string, x + 10, y + 20);
     }
     if (bool) {
       fill(#a3b18a);
-      rect(x, y, l, L);
+      rect(x, y, l, L,10);
       textSize(16);
       fill(255);
       text(string, x + 10, y + 20);
@@ -214,7 +214,7 @@ void input_click_activity(int x, int y, int l, int L, String string, boolean boo
   }
   if (enter_session_password && page==0) {
     fill(#588157);
-    rect(100, 400, 300, 30);
+    rect(100, 400, 300, 30,10);
     textSize(16);
     fill(0);
     for (int i = 0; i < string.length(); i++) {
@@ -223,7 +223,7 @@ void input_click_activity(int x, int y, int l, int L, String string, boolean boo
     } 
   else if (!enter_session_password && session_password.length() > 0 && page==0) {
     fill(#3a86ff);
-    rect(100, 400, 300, 30);
+    rect(100, 400, 300, 30,10);
     textSize(16);
     fill(0);
     for (int i = 0; i < string.length(); i++) {
@@ -235,21 +235,21 @@ void input_click_activity(int x, int y, int l, int L, String string, boolean boo
 void input_click_activity_4int(int x, int y, int l, int L, int number, boolean bool, String name) {
   if (!bool && number == 0) {
     noFill();
-    rect(x, y, l, L);
+    rect(x, y, l, L,10);
     textSize(16);
     fill(255);
     text(name, x + 10, y + 20);
   }
   if (!bool && number > 0) {
     fill(#3a86ff);
-    rect(x, y, l, L);
+    rect(x, y, l, L,10);
     textSize(16);
     fill(255);
     text(number, x + 10, y + 20);
   }
   if (bool) {
     fill(#a3b18a);
-    rect(x, y, l, L);
+    rect(x, y, l, L,10);
     textSize(16);
     fill(255);
     text(number, x + 10, y + 20);
@@ -258,7 +258,7 @@ void input_click_activity_4int(int x, int y, int l, int L, int number, boolean b
 
 
 void profile_picture(){
-  if (key == ' ') {
+  if (picture_s1) {
     page=2;
     if(!one_use){
        background(#2a9d8f);
@@ -272,7 +272,7 @@ void profile_picture(){
       video.start();
       cameraActive = true;
     } else if (photoTaken) {
-      capturedImage = null;  // Clear the captured image
+      capturedImage = null; 
       photoTaken = false;
       cameraActive = true;
     } else {
@@ -280,7 +280,8 @@ void profile_picture(){
       video.dispose();
       cameraActive = false;
     }
-  } else if (key == ENTER) {
+  }
+  if (picture_s2) {
     if (cameraActive) {
       saveFrame("images/pp/photo.png");
       capturedImage = loadImage("images/pp/photo.png");
@@ -288,8 +289,10 @@ void profile_picture(){
       video.stop();
       video.dispose();
       cameraActive = false;
+      picture_s2=false;
     }
-  } else if (photoTaken) {
+  }
+  if (photoTaken) {
     if (key == 'y' || key == 'Y') {
       println("Photo saved as photo.png");
       photoTaken = false;
