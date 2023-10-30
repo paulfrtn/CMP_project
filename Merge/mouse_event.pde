@@ -2,8 +2,14 @@ void mousePressed()
 {
   if (mouseX >= 70 && mouseX <= 100 && mouseY >= 10 && mouseY <= 40 && weatherapp==false) {
     weatherapp = true;
+    VIEW_LIST = false;
+    CREDITS = false;
+    PROFILE = false;
+    ADD_REST = false;
+    menuOpen = false;
   } else if (mouseX >= 20 && mouseX <= 50 && mouseY >= 10 && mouseY <= 40 && weatherapp==true) {
     weatherapp = false;
+    MENU = true;
   }
   if(!logged_in)
   {
@@ -35,7 +41,20 @@ void mousePressed()
       enter_email = input_click_page1(100,400,300,330,enter_email);
       enter_age = input_click_page1(100,400,350,380,enter_age);
       enter_adress = input_click_page1(100,400,400,430,enter_adress);
-      enter_phone_num = input_click_page1(100,400,450,480,enter_phone_num);  
+      enter_phone_num = input_click_page1(100,400,450,480,enter_phone_num); 
+      
+      if(mouseButton == LEFT && ((mouseX>100 && mouseX<400)&&(mouseY>500 && mouseY<550))){
+        page=2;
+        picture_s1=true;
+      }
+    }
+    if(page==2){
+      profile_picture();
+      if(mouseButton == LEFT && ((mouseX>575 && mouseX<625)&&(mouseY>675 && mouseY<725))){
+          picture_s2=true;
+          picture_s1=false;
+          take_picture=true;
+        }
     }
   }
   else
@@ -93,11 +112,6 @@ void mousePressed()
     //RETURN
     else if (mouseX > 25 && mouseX < 45 && mouseY > height/2-15 && mouseY < height/2+15) 
     {
-      if(VIEW_LIST)
-      {
-        VIEW_LIST = false;
-        MENU = true;
-      }
       if(CREDITS)
       {
         CREDITS = false;
@@ -108,14 +122,43 @@ void mousePressed()
         PROFILE = false;
         MENU = true;
       }
+    }
+    //HOME
+    else if (mouseX > 20 && mouseX < 40 && mouseY > 10 && mouseY < 40) 
+    {
       if(ADD_REST)
       {
         ADD_REST = false;
         MENU = true;
       }
-    } 
+      if(VIEW_LIST)
+      {
+        VIEW_LIST = false;
+        MENU = true;
+      }
+    }
+    //FILTER
+    if(ADD_REST)
+    {
+      if(mouseX > 75 && mouseX < 75+150 && mouseY > 120-20 && mouseY < 120+20)
+      {
+        location = (location < 2) ? location + 1 : 0;
+      }
+      if(mouseX > width-150-75 && mouseX < width-150+75 && mouseY > 120-20 && mouseY < 120+20)
+      {
+        price = (price < 3) ? price + 1 : 0;
+      }
+      if(mouseX > 75 && mouseX < 75+150 && mouseY > 170-20 && mouseY < 170+20)
+      {
+        rating = (rating < 5) ? rating + 1 : 0;
+      }
+      if(mouseX > width-150-75 && mouseX < width-150+75 && mouseY > 170-20 && mouseY < 170+20)
+      {
+        origin = (origin < 5) ? origin + 1 : 0;
+      }
+    }
     clickSound.trigger();
-    } 
+  } 
 }
 
 void drawLeftArrow(float arrowSize, float arrowY, float arrowHeadSize, float arrowTailSize) {

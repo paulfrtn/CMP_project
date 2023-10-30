@@ -103,26 +103,23 @@ void menu(){
         textSize(textsize3);
         text("My profile", width/2, 480);
       }
+      image(HomeIn, 20, 10, 30, 30);
+      image(WeatherOut, 70, 10, 30, 30);
     }
     //ADD RESTAURANT
-    else if (ADD_REST) {
-      textAlign(CENTER, CENTER);
-      textSize(48);
-      fill(C1);
-      text("FILTER", width/2, 50);
-      
-      rect(150, 120, 150, 40, 10);
-      rect(width-150, 120, 150, 40, 10);
-      rect(150, 170, 150, 40, 10);
-      rect(width-150, 170, 150, 40, 10);
-      
-      textSize(textsize1);
-      fill(C3);
-      text("LOCATION", 150, 120);
-      text("PRICE", width-150, 120);
-      text("RATING", 150, 170);
+    else if (ADD_REST) 
+    {
+ 
+      filtre();
 
-      cursor(ARROW);
+      if((mouseX > 75 && mouseX < 75+150 && mouseY > 120-20 && mouseY < 120+20) || (mouseX > width-150-75 && mouseX < width-150+75 && mouseY > 120-20 && mouseY < 120+20) || (mouseX > 75 && mouseX < 75+150 && mouseY > 170-20 && mouseY < 170+20) || (mouseX > width-150-75 && mouseX < width-150+75 && mouseY > 170-20 && mouseY < 170+20))
+      {
+        cursor(HAND);
+      }
+      else
+      {
+        cursor(ARROW);
+      }
     }
     //LISTE DE RESTAURANTS 
     else if (VIEW_LIST) {
@@ -130,8 +127,10 @@ void menu(){
       textSize(48);
       fill(C1);
       text("MY LIST", width/2, 50);
-
+        
       cursor(ARROW);
+      image(HomeOut, 20, 10, 30, 30);
+      image(WeatherOut, 70, 10, 30, 30);
     }
     //CREDITS
     else if (CREDITS) {
@@ -205,11 +204,12 @@ void menu(){
           cursor(ARROW);
         } 
       }
-      
+      image(HomeOut, 20, 10, 30, 30);
+      image(WeatherOut, 70, 10, 30, 30);
     }
     
     //RETOUR 
-    if(!MENU)
+    if(!MENU && !ADD_REST && !VIEW_LIST)
     {
       drawLeftArrow(30, height / 2, 15, 10);
       if (mouseX > 25 && mouseX < 45 && mouseY > height/2-15 && mouseY < height/2+15) 
@@ -221,6 +221,5 @@ void menu(){
         cursor(ARROW);
       }
     }
-  image(HomeIn, 20, 10, 30, 30);
-  image(WeatherOut, 70, 10, 30, 30);
+  
 }

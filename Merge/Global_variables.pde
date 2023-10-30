@@ -28,12 +28,12 @@ boolean enter_profile_pic=false;
 boolean cameraActive = false;
 boolean photoTaken = false;
 boolean one_use=false;
-boolean picture_s1=false;
-boolean picture_s2=false;
-boolean take_picture=false;
 boolean animatingText = false;
 boolean isDay = true;
 boolean state = false;
+boolean picture_s1=false;
+boolean picture_s2=false;
+boolean take_picture=false;
 
 float buttonWidth1 = 280;
 float buttonWidth2 = 280;
@@ -48,6 +48,12 @@ float textsize1 = 16;
 float textsize2 = 16;
 float textsize3 = 16;
 float targetFrameRate = 10; 
+
+//FILTRE
+int location = 0;
+int rating = 0;
+int price = 0;
+int origin = 0;
 
 int animationTimer = 0;
 int animationSpeedRect = 5;
@@ -91,6 +97,8 @@ String new_pseudo="";
 String new_password="";
 String adress = "";
 String phone_num="";
+
+
 
 Capture video;
 
