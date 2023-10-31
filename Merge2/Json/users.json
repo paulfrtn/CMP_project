@@ -1,0 +1,54 @@
+[
+  {
+    "password": "",
+    "address": "123 Main St",
+    "user_id": 1,
+    "profile_pic": "images/default_pp.png",
+    "last_name": "Doe",
+    "phone_num": "123-456-7890",
+    "first_name": "John",
+    "pseudo": "",
+    "email": "john.doe@example.com",
+    "age": 30,
+    "favorites": [1, 2, 3, 4, 5, 6, 7]
+  },
+  {
+    "password": "1234",
+    "address": "123 Main St",
+    "user_id": 2,
+    "profile_pic": "images/default_pp.png",
+    "last_name": "Doe",
+    "phone_num": "123-456-7890",
+    "first_name": "John",
+    "pseudo": "johndoe",
+    "email": "john.doe@example.com",
+    "age": 30,
+    "favorites": [1, 4, 6]
+  },
+  {
+    "password": "134",
+    "address": "123 Main St",
+    "user_id": 3,
+    "profile_pic": "images/default_pp.png",
+    "last_name": "Doe",
+    "phone_num": "123-456-7890",
+    "first_name": "John",
+    "pseudo": "johndoe",
+    "email": "john.doe@example.com",
+    "age": 30,
+    "favorites": [2, 4, 7]
+  },
+  {
+    "password": "34",
+    "address": "123 Main St",
+    "user_id": 4,
+    "profile_pic": "images/default_pp.png",
+    "last_name": "Doe",
+    "phone_num": "123-456-7890",
+    "first_name": "John",
+    "pseudo": "johndoe",
+    "email": "john.doe@example.com",
+    "age": 30,
+    "favorites": [3, 5, 6]
+  }
+]
