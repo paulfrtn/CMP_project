@@ -1,0 +1,18 @@
+[
+  {
+    "user_id": 1,
+    "favorites": [1, 4, 7]
+  },
+  {
+    "user_id": 2,
+    "favorites": [2, 4, 5]
+  },
+  {
+    "user_id": 3,
+    "favorites": [3, 6, 7]
+  },
+  {
+    "user_id": 4,
+    "favorites": [1, 2, 3]
+  }
+]
