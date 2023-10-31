@@ -1,0 +1,45 @@
+[
+  {
+    "favorites": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "password": "1234",
+    "address": "123 Main St",
+    "user_id": 1,
+    "profile_pic": "images/default_pp2.jpg",
+    "last_name": "Doe",
+    "phone_num": "123-456-7890",
+    "first_name": "John",
+    "pseudo": "johndoe",
+    "email": "john.doe@example.com",
+    "age": 30
+  },
+  {
+    "favorites": [
+      3,
+      5,
+      10,
+      12,
+      15,
+      17,
+      19
+    ],
+    "password": "5678",
+    "address": "458 Main St",
+    "user_id": 1,
+    "profile_pic": "images/default_pp.png",
+    "last_name": "Smith",
+    "phone_num": "125-436-4890",
+    "first_name": "Alice",
+    "pseudo": "alicesmith",
+    "email": "alice.smith@example.com",
+    "age": 20
+  },
+
+]
