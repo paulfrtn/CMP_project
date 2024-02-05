@@ -6,6 +6,8 @@ JSONArray users;
 JSONArray restaurants;
 JSONArray API_rest;
 
+//Test git
+
 boolean add_rest = false;
 boolean enter_session_pseudo = false;
 boolean enter_session_password = false;
